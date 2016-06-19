@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.tamk.Tspider.manager.ItemManager;
 import com.tamk.Tspider.repository.model.ItemDO;
 import com.tamk.Tspider.repository.model.query.ItemQuery;
 import com.tamk.Tspider.repository.service.ItemMapper;
 
+@Service("itemManager")
 public class ItemManagerImpl implements ItemManager {
 	@Resource
 	private ItemMapper itemMapper;

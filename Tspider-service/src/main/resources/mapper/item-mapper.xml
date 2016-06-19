@@ -29,26 +29,26 @@
 			</foreach>
 		</if>
 		<if test="null != priceFrom">
-			and price >= #{priceFrom}
+			<![CDATA[and price >= #{priceFrom}]]>
 		</if>
 		<if test="null != priceTo">
-			and price < #{priceTo}
+			<![CDATA[and price < #{priceTo}]]>
 		</if>
 		<if test="null != sellNumFrom">
-			and sell_num >= #{sellNumFrom}
+			<![CDATA[and sell_num >= #{sellNumFrom}]]>
 		</if>
 		<if test="null != sellNumTo">
-			and sell_num < #{sellNumTo}
+			<![CDATA[and sell_num < #{sellNumTo}]]>
 		</if>
 		<if test="null != evaluateNumFrom">
-			and evaluate_num >= #{evaluateNumFrom}
+			<![CDATA[and evaluate_num >= #{evaluateNumFrom}]]>
 		</if>
 		<if test="null != evaluateNumTo">
-			and evaluate_num < #{evaluateNumTo}
+			<![CDATA[and evaluate_num < #{evaluateNumTo}]]>
 		</if>
 	</sql>
 
-	<select id="queryItems" patameterType="itemQuery" resultType="itemDO">
+	<select id="queryItems" parameterType="itemQuery" resultType="itemDO">
 		select
 		<include refid="item_column" />
 		from item
@@ -64,7 +64,7 @@
 		values(now(), now(), #{itemId}, #{source}, #{itemTitle}, #{price}, #{sellNum}, #{evaluateNum})
 	</insert>
 
-	<insert id="insertItem" parameterType="java.util.List">
+	<insert id="batchInsertItem" parameterType="java.util.List">
 		insert into item(gmt_create, gmt_modified, item_id, source, item_title, price, sell_num, evaluate_num) 
 		values
 		<foreach collection="" item="one" open="(" close=")" separator=",">
@@ -72,7 +72,7 @@
 		</foreach>
 	</insert>	
 
-	<update id="updateItem" parameterTyp="itemDO">
+	<update id="updateItem" parameterType="itemDO">
 		update item
 		set gmt_modified = now()
 		<if test="null != itemId">

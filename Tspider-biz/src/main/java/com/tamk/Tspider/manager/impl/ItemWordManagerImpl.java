@@ -4,11 +4,17 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
+
 import com.tamk.Tspider.manager.ItemWordManager;
 import com.tamk.Tspider.repository.model.ItemWordDO;
 import com.tamk.Tspider.repository.model.query.ItemWordQuery;
 import com.tamk.Tspider.repository.service.ItemWordMapper;
 
+/**
+ * @author kuanqiang.tkq
+ */
+@Service("itemWordManager")
 public class ItemWordManagerImpl implements ItemWordManager {
 	@Resource
 	private ItemWordMapper itemWordMapper;

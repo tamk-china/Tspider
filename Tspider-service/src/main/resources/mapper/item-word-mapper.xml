@@ -30,9 +30,9 @@
 	</select>
 
 	<insert id="insertItemWord" parameterType="itemWordDO">
-		<select resultType="java.lang.Long" order="AFTER" keyProperty="id">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
 			select LAST_INSERT_ID() as id
-		</select>
+		</selectKey>
 		insert into item_word(gmt_create, gmt_modified, word, item_id, source)
 		values(now(), now(), #{word}, #{itemId}, #{source})
 	</insert>
@@ -45,9 +45,9 @@
 		</foreach>
 	</insert>
 
-	<delect id="deleteItemWord" parameterType="itemWordQuery">
+	<delete id="deleteItemWord" parameterType="itemWordQuery">
 		delete
 		from item_word
 		<include refid="item_word_column" />
-	</delect>
+	</delete>
 </mapper>
