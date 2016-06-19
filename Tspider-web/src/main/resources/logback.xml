@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="log.base.dir" value="logs" />
+
+	<appender name="" class="">
+		<encoder>
+			<pattern></pattern>
+		</encoder>
+	</appender>
+</configuration>
