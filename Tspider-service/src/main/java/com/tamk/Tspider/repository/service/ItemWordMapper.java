@@ -9,11 +9,11 @@ import com.tamk.Tspider.repository.model.query.ItemWordQuery;
  * @author kuanqiang.tkq
  */
 public interface ItemWordMapper {
-	List<ItemWordDO> query(ItemWordQuery query);
+	List<ItemWordDO> queryItemWord(ItemWordQuery query);
 
 	boolean batchInsertItemWord(List<ItemWordDO> itemWords);
 
 	long insertItemWord(ItemWordDO itemWord);
 
-	int delete(ItemWordQuery query);
+	int deleteItemWord(ItemWordQuery query);
 }

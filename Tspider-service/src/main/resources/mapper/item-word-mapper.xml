@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamk.Tspider.repository.service.ItemWordMapper">
+	<sql id="item_word_column">
+		id, gmt_create, gmt_modified, word, item_id, source
+	</sql>
+
+	<sql id="item_word_condition">
+		where 1=1
+		<if test="null != id">
+			id = #{id}
+		</if>
+		<if test="null != itemId">
+			item_id = #{itemId}
+		</if>
+		<if test="null != word">
+			word = #{word}
+		</if>
+		<if test="null != source">
+			source = #{source}
+		</if>
+	</sql>
+
+	<select id="queryItemWord" parameterType="itemWordQuery" resultType="itemWordDO">
+		select 
+		<include refid="item_word_column" />
+		from item_word
+		<include refid="item_word_condition" />
+		limit ${start}, ${pageSize}
+	</select>
+
+	<insert id="insertItemWord" parameterType="itemWordDO">
+		<select resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			select LAST_INSERT_ID() as id
+		</select>
+		insert into item_word(gmt_create, gmt_modified, word, item_id, source)
+		values(now(), now(), #{word}, #{itemId}, #{source})
+	</insert>
+
+	<insert id="batchInsertItemWord" parameterType="java.util.List">
+		insert into item_word(gmt_create, gmt_modified, word, item_id, source)
+		values
+		<foreach collection="itemWords" item="one" open="(" close=")" separator=",">
+			(now(), now(), #{one.word}, #{one.itemId}, #{one.source})
+		</foreach>
+	</insert>
+
+	<delect id="deleteItemWord" parameterType="itemWordQuery">
+		delete
+		from item_word
+		<include refid="item_word_column" />
+	</delect>
+</mapper>

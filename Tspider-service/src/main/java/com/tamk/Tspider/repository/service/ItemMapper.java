@@ -13,7 +13,7 @@ public interface ItemMapper {
 
 	int updateItem(ItemDO item);
 
-	int delete(ItemQuery query);
+	int deleteItem(ItemQuery query);
 
 	long insertItem(ItemDO item);
 	
