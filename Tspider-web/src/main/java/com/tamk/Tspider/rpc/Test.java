@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.tamk.Tspider.manager.ItemManager;
 import com.tamk.Tspider.manager.ItemWordManager;
+import com.tamk.Tspider.repository.model.ItemDO;
 
 /**
  * @author kuanqiang.tkq
@@ -29,7 +30,14 @@ public class Test {
 	@ResponseBody
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public Object test() {
-		log.warn("request~~~~~~~~~");
-		return "hello";
+		ItemDO item =new ItemDO();
+		item.setItemId(1L);
+		item.setEvaluateNum(1);
+		item.setItemTitle("test");
+		item.setPrice(1);
+		item.setSellNum(1);
+		item.setSource(1);
+		
+		return itemManager.insertItem(item);
 	}
 }
