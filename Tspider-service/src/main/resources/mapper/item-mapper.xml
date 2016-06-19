@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tamk.Tspider.repository.service.ItemMapper">
+	<sql id="item_column">
+		id, gmt_create, gmt_modified, item_id, source, item_title, price, sell_num, evaluate_num
+	</sql>
+
+	<sql id="query_condition">
+		where 1=1
+		<if test="null != id">
+			and id = ${id}
+		</if>
+		<if test="null != ids">
+			and id in
+			<foreach collection="ids" item="one" open="(" close=")" separator=",">
+				#{one}
+			</foreach>
+		</if>
+		<if test="null != itemTitle">
+			and item_title like concat('%', #{itemTitle}, '%')
+		</if>
+		<if test="null != itemId">
+			and item_id = #{itemId}
+		</if>
+		<if test="null != itemIds">
+			and item_id in
+			<foreach collection="itemIds" item="one" open="(" close=")" separator=",">
+				#{one}
+			</foreach>
+		</if>
+		<if test="null != priceFrom">
+			and price >= #{priceFrom}
+		</if>
+		<if test="null != priceTo">
+			and price < #{priceTo}
+		</if>
+		<if test="null != sellNumFrom">
+			and sell_num >= #{sellNumFrom}
+		</if>
+		<if test="null != sellNumTo">
+			and sell_num < #{sellNumTo}
+		</if>
+		<if test="null != evaluateNumFrom">
+			and evaluate_num >= #{evaluateNumFrom}
+		</if>
+		<if test="null != evaluateNumTo">
+			and evaluate_num < #{evaluateNumTo}
+		</if>
+	</sql>
+
+	<select id="queryItems" patameterType="itemQuery" resultType="itemDO">
+		select
+		<include refid="item_column" />
+		from item
+		<include refid="query_condition" />
+		limit #{start}, #{pageSize}
+	</select>
+
+	<insert id="insertItem" parameterType="itemDO">
+		<selectKey resultType="java.lang.Long" order="AFTER" keyProperty="id">
+			select LAST_INSERT_ID() as id
+		</selectKey>
+		insert into item(gmt_create, gmt_modified, item_id, source, item_title, price, sell_num, evaluate_num) 
+		values(now(), now(), #{itemId}, #{source}, #{itemTitle}, #{price}, #{sellNum}, #{evaluateNum})
+	</insert>
+
+	<insert id="insertItem" parameterType="java.util.List">
+		insert into item(gmt_create, gmt_modified, item_id, source, item_title, price, sell_num, evaluate_num) 
+		values
+		<foreach collection="" item="one" open="(" close=")" separator=",">
+			(now(), now(), #{one.itemId}, #{one.source}, #{one.itemTitle}, #{one.price}, #{one.sellNum}, #{one.evaluateNum})
+		</foreach>
+	</insert>	
+
+	<update id="updateItem" parameterTyp="itemDO">
+		update item
+		set gmt_modified = now()
+		<if test="null != itemId">
+			, item_id = #{itemId}
+		</if>
+		<if test="null != source">
+			, source = #{source}
+		</if>
+		<if test="null != itemTitle">
+			, item_title = #{itemTitle}
+		</if>
+		<if test="null != price">
+			, price = #{price}
+		</if>
+		<if test="null != sellNum">
+			, sell_num = #{sellNum}
+		</if>
+		<if test="null != evaluateNum">
+			, evaluate_num = #{evaluateNum}
+		</if>
+		where id = #{id}
+	</update>
+
+	<delete id="deleteItem" parameterType="itemQuery">
+		delece
+		from item
+		<include refid="query_condition" />
+	</delete>
+</mapper>

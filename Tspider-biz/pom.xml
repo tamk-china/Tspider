@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.tamk.Tspider</groupId>
-			<artifactId>Tspider-dal</artifactId>
+			<artifactId>Tspider-service</artifactId>
 		</dependency>
 	</dependencies>
 </project>
