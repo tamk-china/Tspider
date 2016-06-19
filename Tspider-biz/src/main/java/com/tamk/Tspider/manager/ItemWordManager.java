@@ -1,4 +1,4 @@
-package com.tamk.Tspider.repository.service;
+package com.tamk.Tspider.manager;
 
 import java.util.List;
 
@@ -8,10 +8,10 @@ import com.tamk.Tspider.repository.model.query.ItemWordQuery;
 /**
  * @author kuanqiang.tkq
  */
-public interface ItemWordMapper {
+public interface ItemWordManager {
 	List<ItemWordDO> queryItemWord(ItemWordQuery query);
 
-	long batchInsertItemWord(List<ItemWordDO> itemWords);
+	boolean batchInsertItemWord(List<ItemWordDO> itemWords);
 
 	long insertItemWord(ItemWordDO itemWord);
 

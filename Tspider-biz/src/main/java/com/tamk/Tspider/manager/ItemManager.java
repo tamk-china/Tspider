@@ -1,4 +1,4 @@
-package com.tamk.Tspider.repository.service;
+package com.tamk.Tspider.manager;
 
 import java.util.List;
 
@@ -8,7 +8,7 @@ import com.tamk.Tspider.repository.model.query.ItemQuery;
 /**
  * @author kuanqiang.tkq
  */
-public interface ItemMapper {
+public interface ItemManager {
 	List<ItemDO> queryItems(ItemQuery query);
 
 	int updateItem(ItemDO item);
@@ -17,5 +17,5 @@ public interface ItemMapper {
 
 	long insertItem(ItemDO item);
 	
-	long batchInsertItem(List<ItemDO> items);
+	boolean batchInsertItem(List<ItemDO> items);
 }

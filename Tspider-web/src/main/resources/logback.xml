@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<property name="log.base.dir" value="logs" />
+	<property name="spider.log.dir" value="spider" />
 
-	<appender name="" class="">
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 		<encoder>
-			<pattern></pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %thread %-5level %logger{36} %msg%n</pattern>
 		</encoder>
 	</appender>
+
+	<appender name="spiderAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>${log.base.dir}/${spider.log.dir}/spider.log</File>
+		<roolingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base.dir}/${spider.log.dir}/spider-%d{yyyy-MM-dd}.log</fileNamePattern>
+		</roolingPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %thread %-5level %logger{36} %msg%n</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="com.tamk.Tspider" level="WARN">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="spiderAppender" />
+	</logger>
+
+	<root level="WARN">
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="spiderAppender" />
+	</root>
 </configuration>
